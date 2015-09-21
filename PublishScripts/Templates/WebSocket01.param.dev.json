@@ -1,0 +1,29 @@
+{
+  "siteName": {
+    "value": "SK-WebSocket01"
+  },
+  "hostingPlanName": {
+    "value": "Default1"
+  },
+  "siteLocation": {
+    "value": "Japan East"
+  },
+  "sku": {
+    "value": "Free"
+  },
+  "workerSize": {
+    "value": "0"
+  },
+  "siteMode": {
+    "value": "Limited"
+  },
+  "computeMode": {
+    "value": "0"
+  },
+  "subscriptionId": {
+    "value": "18dcec71-c051-4e7b-a8a9-260df9bbc8f6"
+  },
+  "resourceGroup": {
+    "value": "Default-Web-JapanEast"
+  }
+}
