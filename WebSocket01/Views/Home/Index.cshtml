@@ -1,0 +1,64 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Index</title>
+</head>
+<body>
+    <button id="connectBtn">Connect</button>
+    <br />
+    Message: <input type="text" id="message" /><button id="sendBtn">Send</button>
+    <br />
+    Log: <pre id="applog" style="width:100%; height:260px; overflow:auto; border:1px solid gray;"></pre>
+
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript">
+        var socket;
+
+        $(function () {
+            $('#connectBtn').click(function () {
+                try {
+                    socket = new WebSocket('ws://' + location.hostname + ':' + location.port + '/wsserver');
+                    socket.onopen = function (evt) {
+                        log('connected.');
+                    };
+                    socket.onclose = function onClose(evt) {
+                        log('closed.');
+                    };
+                    socket.onerror = function onError(evt) {
+                        log('websocket error! ');
+                    };
+                    socket.onmessage = function onMessage(evt) {
+                        log('reseive: ' + evt.data);
+                    };
+                } catch (e) {
+                    alert(e.message);
+                }
+            });
+
+            $('#sendBtn').click(function () {
+                var obj = new Object();
+                obj.message = $('#message').val();
+
+                var jsonString = JSON.stringify(obj);
+                socket.send(jsonString);
+                log('send: ' + jsonString);
+                $('#message').val('');
+                return false;
+            });
+        });
+
+        function log(msg) {
+            var txt = $('#applog').text();
+            txt = msg + '\n' + txt;
+            $('#applog').text(txt);
+        }
+    </script>
+</body>
+</html>
