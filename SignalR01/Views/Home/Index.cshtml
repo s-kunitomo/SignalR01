@@ -1,0 +1,39 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h2>SignalR</h2>
+    <input id="button" type="button" value="値取得">
+    <input id="text" type="text">
+
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script>
+        var con = $.hubConnection();
+
+        var hub = con.createHubProxy('sampleHub');
+        hub.on('onUpdate', function (value) {
+            $('#text').val(value);
+        });
+
+        con.start(function () {
+            alert('接続完了');
+        }).fail(function (code) {
+            alert(code);
+        });
+
+        $('#button').click(function () {
+            hub.invoke('GetValue');
+        });
+    </script>
+</body>
+</html>
